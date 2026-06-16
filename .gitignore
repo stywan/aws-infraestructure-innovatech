@@ -1,0 +1,23 @@
+# =============================================================================
+# Terraform
+# =============================================================================
+.terraform/
+.terraform.lock.hcl
+
+# State: NUNCA subir a git (contiene secretos: endpoints, credenciales)
+*.tfstate
+*.tfstate.*
+crash.log
+crash.*.log
+
+# Variables con valores sensibles (usar terraform.tfvars.example como plantilla)
+terraform.tfvars
+*.auto.tfvars
+
+# Planes generados
+*.tfplan
+
+# =============================================================================
+# Sistema
+# =============================================================================
+.DS_Store

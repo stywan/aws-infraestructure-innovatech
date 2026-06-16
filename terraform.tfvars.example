@@ -1,0 +1,44 @@
+# =============================================================================
+# terraform.tfvars.example  —  plantilla. Copia a terraform.tfvars y ajusta.
+# (terraform.tfvars está en .gitignore: no se sube por contener datos del lab)
+# =============================================================================
+
+# Región AWS Academy (no cambiar)
+aws_region = "us-east-1"
+
+# Nombre del proyecto (prefijo para todos los recursos)
+project_name = "innovatech"
+
+# --- Red ---
+vpc_cidr           = "10.0.0.0/16"
+availability_zones = ["us-east-1a", "us-east-1b"]
+
+# Subredes públicas (ALB) — una por AZ
+public_subnet_cidrs = ["10.0.1.0/24", "10.0.4.0/24"]
+
+# Subredes privadas App (tareas ECS Fargate) — una por AZ
+private_app_subnet_cidrs = ["10.0.2.0/24", "10.0.5.0/24"]
+
+# Subredes privadas Data (RDS) — una por AZ
+private_data_subnet_cidrs = ["10.0.3.0/24", "10.0.6.0/24"]
+
+# --- ECR ---
+ecr_max_image_count = 10
+
+# --- Health check del ALB (frontend) ---
+# Frontend (Nginx sirve la SPA en "/"). Los health checks de los backends se
+# definen por servicio en el bloque locals de main.tf (rutas reales /api/v1/...).
+frontend_health_check_path = "/"
+
+# --- IAM (AWS Academy) ---
+lab_role_name = "LabRole"
+
+# --- Base de datos RDS ---
+db_username       = "admin"
+db_password       = "CAMBIA_ESTA_CLAVE_Segura123"  # NO subir el terraform.tfvars real
+db_instance_class = "db.t3.micro"
+
+# --- Imágenes ---
+# Tag inicial. Hasta que el pipeline publique imágenes en ECR, las tareas
+# reintentarán el pull. Despliega la infra primero y luego corre el CI/CD.
+image_tag = "latest"
