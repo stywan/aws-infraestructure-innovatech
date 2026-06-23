@@ -70,6 +70,8 @@ locals {
         container_port   = local.frontend_port
         image            = "${module.ecr.repository_urls[local.frontend_repo_name]}:${var.image_tag}"
         target_group_arn = module.alb.frontend_target_group_arn
+        cpu              = 256
+        memory           = 512
         environment      = {}
         secrets          = {}
       }
@@ -79,6 +81,8 @@ locals {
         container_port   = b.port
         image            = "${module.ecr.repository_urls["${var.project_name}-${name}"]}:${var.image_tag}"
         target_group_arn = module.alb.backend_target_group_arns[name]
+        cpu              = 512
+        memory           = 1024
         environment = {
           DB_ENDPOINT = module.rds.address
           DB_PORT     = tostring(module.rds.port)

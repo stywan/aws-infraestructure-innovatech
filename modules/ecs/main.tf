@@ -133,7 +133,9 @@ resource "aws_ecs_service" "service" {
   }
 
   # Da margen a que la tarea pase el health check del ALB antes de contarla.
-  health_check_grace_period_seconds = 60
+  # Spring Boot tarda ~80-90s en arrancar en Fargate, por lo que se da margen
+  # suficiente para evitar que el ALB la marque unhealthy antes de estar lista.
+  health_check_grace_period_seconds = var.health_check_grace_period_seconds
 
   # El pipeline CI/CD actualiza la task definition y el autoscaling cambia el
   # desired_count: Terraform no debe revertir esos cambios fuera de banda.

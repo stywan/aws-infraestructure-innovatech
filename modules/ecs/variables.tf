@@ -40,6 +40,12 @@ variable "enable_container_insights" {
   default     = true
 }
 
+variable "health_check_grace_period_seconds" {
+  description = "Segundos de gracia antes de que el ALB cuente health checks (debe superar el tiempo de arranque de la app)"
+  type        = number
+  default     = 180
+}
+
 variable "services" {
   description = <<-EOT
     Mapa de servicios a desplegar. Clave = nombre del servicio. Cada valor:

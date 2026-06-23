@@ -78,7 +78,7 @@ resource "aws_security_group_rule" "ecs_from_alb" {
   for_each = toset([for p in var.container_ports : tostring(p)])
 
   type                     = "ingress"
-  description              = "ALB -> contenedor puerto ${each.value}"
+  description              = "ALB a contenedor puerto ${each.value}"
   from_port                = tonumber(each.value)
   to_port                  = tonumber(each.value)
   protocol                 = "tcp"
